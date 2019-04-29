@@ -14,6 +14,7 @@ namespace Panorama180View {
         [SerializeField] Vector3 startPos = new Vector3(0, 0, 0);           // Camera start position.
         [SerializeField] Vector3 endPos = new Vector3(1, 0, 0);             // Camera end position.
         [SerializeField] float rotationY = 0.0f;                            // Y軸中心の回転.
+        [SerializeField] bool spatialInterpolation = true;                  // 空間補間.
 
         private GameObject m_backgroundSphere = null;       // 背景球.
         private Material m_backgroundSphereMat = null;      // 背景のマテリアル.
@@ -115,7 +116,7 @@ namespace Panorama180View {
                 m_blurMat = new Material(shader);
             }
 
-            m_samplingCount = 24;   // / 2;
+            m_samplingCount = 24;
 
             m_Texture2DList = new Texture2D[m_samplingCount];
             m_Texture2DDepthList = new RenderTexture[m_samplingCount];
@@ -204,7 +205,7 @@ namespace Panorama180View {
                         // p1-p2の直線とcurCameraPosでできる垂線位置を計算.
                         float aPos  = 0.0f;
                         float aDist = 0.0f;
-                        if (!MathUtil.CalcAltitude(p1, p2, curCameraPos, ref aPos, ref aDist)) continue;
+                        if (!MathUtil.CalcPerpendicular(p1, p2, curCameraPos, ref aPos, ref aDist)) continue;
                         if (aPos < 0.0f || aPos > 1.0f) continue;
                         if (aDist > maxAltitudeDist) continue;
                         if (minPos < 0 || minADist > aDist) {
@@ -246,6 +247,7 @@ namespace Panorama180View {
 
             m_backgroundSphereMat.SetInt("_DepthTextureWidth", m_Texture2DDepthList[m_curP].width);
             m_backgroundSphereMat.SetInt("_DepthTextureHeight", m_Texture2DDepthList[m_curP].height);
+            m_backgroundSphereMat.SetInt("_SpatialInterpolation", spatialInterpolation ? 1 : 0);            
         }
     }
 }

@@ -1,12 +1,11 @@
 //----------------------------------------------------------------.
-// GaussianによるBlur処理.
+// Depth Blur.
 //----------------------------------------------------------------.
 Shader "Hidden/Panorama180View/Blur"
 {
 	Properties
 	{
 		_MainTex ("Texture", 2D) = "white" {}
-        _BlurIntensity ("BlurIntensity", Range (0, 10.0)) = 1.0
 	}
 	SubShader
 	{
@@ -35,12 +34,9 @@ Shader "Hidden/Panorama180View/Blur"
 				float4 vertex : SV_POSITION;
 			};
 
-			// depthテクスチャ.
-			sampler2D _MainTex;
-
-            float _BlurIntensity;		// ブラーの強さ.
-			float _TextureWidth;		// テクスチャの幅.
-			float _TextureHeight;		// テクスチャの高さ.
+			sampler2D _MainTex;			// depth texture.
+			float _TextureWidth;		// Texture width.
+			float _TextureHeight;		// Texture height.
 
 			v2f vert (appdata v)
 			{
@@ -62,12 +58,6 @@ Shader "Hidden/Panorama180View/Blur"
 				int cou = 1;
 				float2 uvP = float2(xD, yD);
 				for (int i = 0; i < 3; ++i) {
-/*					
-					col += tex2D(_MainTex, float2(min(1.0, uv.x + uvP.x), uv.y));
-					col += tex2D(_MainTex, float2(max(0.0, uv.x - uvP.x), uv.y));
-					col += tex2D(_MainTex, float2(uv.x, min(1.0, uv.y + uvP.y)));
-					col += tex2D(_MainTex, float2(uv.x, max(0.0, uv.y - uvP.y)));
-			*/
 					{
 						col2 = tex2D(_MainTex, float2(min(1.0, uv.x + uvP.x), uv.y));
 						col.x = min(col.x, col2.x);
@@ -97,7 +87,6 @@ Shader "Hidden/Panorama180View/Blur"
 					uvP.y += yD;
 					cou += 4;
 				}
-				//col /= (float)cou;
 
                 return col;
             }

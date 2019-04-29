@@ -55,6 +55,7 @@ Shader "Hidden/Panorama180View/panoramaSphereSpaceMovement"
 
 			int _DepthTextureWidth = 2048;		// depthテクスチャの幅.
 			int _DepthTextureHeight = 1024;		// depthテクスチャの高さ.
+			int _SpatialInterpolation = 1;		// 空間補間を行うかどうか.
 
 			float _CameraNearPlane = 0.1;		// カメラの近クリップ面.
 			float _CameraFarPlane  = 100.0;		// カメラの遠クリップ面.
@@ -180,11 +181,11 @@ Shader "Hidden/Panorama180View/panoramaSphereSpaceMovement"
 				float2 newUV2 = calcWorldPosToUV(_Pos2, wPosC);
 
 				// UV値より、それぞれのワールド座標位置を計算.
-				float3 wPos1 = calcUVToWorldPos(_TexDepth1, newUV1, _Pos1, normalize(wPosC - _Pos1));
-				float3 wPos2 = calcUVToWorldPos(_TexDepth2, newUV2, _Pos2, normalize(wPosC - _Pos2));
+				float3 wPosA = calcUVToWorldPos(_TexDepth1, newUV1, _Pos1, normalize(wPosC - _Pos1));
+				float3 wPosB = calcUVToWorldPos(_TexDepth2, newUV2, _Pos2, normalize(wPosC - _Pos2));
 
-				float angle1 = dot(normalize(wPos1 - wPosC0), vDir);
-				float angle2 = dot(normalize(wPos2 - wPosC0), vDir);
+				float angle1 = dot(normalize(wPosA - wPosC0), vDir);
+				float angle2 = dot(normalize(wPosB - wPosC0), vDir);
 				float4 col1 = tex2D(_Tex1, newUV1);
 				float4 col2 = tex2D(_Tex2, newUV2);
 
@@ -209,6 +210,15 @@ Shader "Hidden/Panorama180View/panoramaSphereSpaceMovement"
 
 				// UV値を計算.
 				uv = calcUV(uv);
+
+				// 空間補間を行わない場合.
+				if (_SpatialInterpolation == 0) {
+					float4 col1 = tex2D(_Tex1, uv);
+					float4 col2 = tex2D(_Tex2, uv);
+					float4 col = lerp(col1, col2, _BlendV);
+	                col.rgb *= _Intensity;
+					return col;
+				}
 
 				// 視線ベクトル.
 				float2 uv2 = float2(i.uv.x, i.uv.y);

@@ -15,7 +15,7 @@ namespace Panorama180View {
          * @param[out] aPos  p1-p2を1.0としたときの位置.
          * @param[out] aDist 垂線の長さ.
          */
-        static public bool CalcAltitude (Vector3 p1, Vector3 p2, Vector3 cPos, ref float aPos, ref float aDist) {
+        static public bool CalcPerpendicular (Vector3 p1, Vector3 p2, Vector3 cPos, ref float aPos, ref float aDist) {
             Vector3 retV = Vector3.zero;
             float fMin = (float)(1e-6);
 
