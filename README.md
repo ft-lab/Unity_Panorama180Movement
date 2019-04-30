@@ -1,49 +1,56 @@
 # Panorama180Movement Demo
 
-## はじめに
+[Japanese readme](./README_jp.md)
 
-VR180などの180度パノラマ-3D画像を使用した場合、VR上ではカメラを中心に向きを変えることができますが移動することはできません。    
-3DoFの動作となります。    
-このパノラマ画像を使用したVR空間上で特定の方向に移動できるようにし、
-また、極力負荷をかけない計算を行い、制限付きの6DoF操作ができるようにします。    
+## In the beginning
 
-![img_00](images/algo_cameras.jpg)     
+When using a 180 degree panorama-3D image such as the VR 180, the player can turn around the camera on the VR but can not move it.     
+This is 3DoF operation.    
+It is possible to move in a specific direction on the VR space using this panoramic image,    
+perform calculations with as little load as possible, and enable limited 6DoF operation.    
 
-## 開発環境
+![img_00](images/unity_panorama180Movement_movie.gif)     
+
+## Development environment
 
 Unity 2018.3.8 (Windows)     
 
-## 使い方
+## How to use
 
-[Panorama180Movement]フォルダをUnityで開き、Scenes/SampleSceneのシーンを開きます。    
-Main Cameraにあらかじめリソースとして格納してある「空間キャッシュ」（RGBテクスチャ、Depthテクスチャ、移動座標、Y回転値など）の情報を指定します。    
-なお、リソースの読み込みなどの実装はハードコーディングされています。    
-これはあくまでもデモとしてご使用くださいませ。    
+Open the [Panorama180Movement] folder in Unity, and then open the Scene/SampleScene scene.    
+Specify the information of "Spatial cache" (RGB texture, depth texture, movement coordinate, Y rotation value, etc.) stored as a resource in Main Camera in advance.    
+Note that implementations such as resource loading are hard-coded.    
+Please use this as a demonstration to the last.    
 
-実行は、Oculus Riftをかぶって確認しました。    
+The run was confirmed using the Oculus Rift.    
 
-## 実行ファイル
+## Executable file
 
-以下より実行ファイルをダウンロードできます。    
+Download the executable file from the following.    
 
-https://ft-lab.jp/VRTest/index_jp.html
+https://ft-lab.jp/VRTest/index.html
 
-## アルゴリズム解説
+## Algorithm explanation
 
-以下で、本デモのアルゴリズムを記述しています。    
+The following describes the algorithm of this demo.    
 
-https://ft-lab.jp/VRTest/algorithm_jp.html
+https://ft-lab.jp/VRTest/algorithm.html
 
-## 更新履歴
+## Change log
+
+### [04/30/2019]
+
+- README updated. Added English README.
 
 ### [04/29/2019]
 
-- GitHubにソースコードをアップロード
+- Upload source code to GitHub
 
-### ver.1.0.1 [04/23/2019]
-- 内部的なリソースを最適化（容量削減）
-- 空間補間処理の最適化
+### [04/23/2019] ver.1.0.1    
 
-### ver.1.0.0 [04/14/2019]
+- Optimize internal resources (capacity reduction)
+- Optimization of spatial interpolation processing
 
-- はじめのリリース
+### [04/14/2019] ver.1.0.0
+
+- First release
