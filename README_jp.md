@@ -11,6 +11,12 @@ VR180などの180度パノラマ-3D画像を使用した場合、VR上ではカ�
 
 ![img_00](images/unity_panorama180Movement_movie.gif)     
 
+## 動作確認環境
+
+Unity 2019.1.9f1 (Windows)    
+Unity 2019.1.1f1 (Windows)    
+Unity 2018.3.8 (Windows)    
+
 ## 開発環境
 
 Unity 2018.3.8 (Windows)     

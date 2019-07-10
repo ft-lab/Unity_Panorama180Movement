@@ -11,6 +11,12 @@ perform calculations with as little load as possible, and enable limited 6DoF op
 
 ![img_00](images/unity_panorama180Movement_movie.gif)     
 
+## Operation check environment
+
+Unity 2019.1.9f1 (Windows)    
+Unity 2019.1.1f1 (Windows)    
+Unity 2018.3.8 (Windows)    
+
 ## Development environment
 
 Unity 2018.3.8 (Windows)     
